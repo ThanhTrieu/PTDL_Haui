@@ -1,134 +1,307 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Thông tin xe</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Car information needs price forecast.</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
+  <!-- Favicons -->
+  <link href="{{url_for('static', filename='assets/img/favicon.png')}}" rel="icon">
+  <link href="{{url_for('static', filename='assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
-    .header {
-      text-align: left;
-      margin-bottom: 20px;
-    }
-
-    .image {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-    }
-
-    .form-group {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .form-group label {
-      margin-right: 10px;
-    }
-
-    .submit-button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-    }
-  </style>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{{url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/vendor/aos/aos.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+  <!-- Main CSS File -->
+  <link href="{{url_for('static', filename='assets/css/main.css')}}" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <img src="{{ url_for('static', filename='images/anh-chu-thich.png') }}" alt="Ảnh chủ thích" class="image">
-    <h1 class="header">Thông tin xe</h1>
-    <form action="/predict" method="post">
-      <div class="form-group">
-        <label for="year">Year:</label>
-        <input type="number" step="any" name="year" required><br>
-      </div>
-      <div class="form-group">
-        <label for="transmission">Transmission:</label>
-        <select name="transmission" required>
-          <option value="" disabled selected>Select transmission</option>
-          <option value="Automatic">Automatic</option>
-          <option value="Manual">Manual</option>
-          <option value="Semi-Auto">Semi-Automatic</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      
-      <!-- Thêm dòng xuống đây -->
-      <br>
-      <div class="form-group">
-        <label for="mileage">Mileage:</label>
-        <input type="number" step="any" name="mileage" required>
-      </div>
-      <br>
-      <div class="form-group">
-        <label for="fuelType">FuelType:</label>
-        <select name="fuelType" required>
-          <option value="" disabled selected>Select FuelType</option>
-          <option value="Diesel">Diesel</option>
-          <option value="Hybrid">Hybrid</option>
-          <option value="Petrol">Petrol</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      <br>
 
-      <div class="form-group">
-        <label for="automaker">Automaker:</label>
-        <select name="automaker" required>
-          <option value="" disabled selected>Select Automaker</option>
-          <option value="audi">Audi</option>
-          <option value="bmw">BMW</option>
-          <option value="focus">Focus</option>
-          <option value="ford">Ford</option>
-          <option value="hyundi">Hyundi</option>
-          <option value="merc">Mercedes</option>
-          <option value="skoda">Skoda</option>
-          <option value="toyota">Toyota</option>
-          <option value="vauxhall">Vauxhall</option>
-          <option value="vw">VW</option>
-        </select>
+<body class="index-page">
+
+  <header id="header" class="header dark-background d-flex flex-column">
+    <i class="header-toggle d-xl-none bi bi-list"></i>
+
+    <div class="profile-img">
+      <img src="{{url_for('static', filename='assets/img/car.jpeg')}}" alt="" class="img-fluid rounded-circle">
+    </div>
+
+    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
+      <!-- Uncomment the line below if you also wish to use an image logo -->
+      <!-- <img src="assets/img/logo.png" alt=""> -->
+      <h1 class="sitename">Dự báo giá xe hơi</h1>
+    </a>
+
+    <div class="social-links text-center">
+      <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+      <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+      <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+    </div>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="#home" class="active"><i class="bi bi-house navicon"></i>Trang chủ</a></li>
+        <li><a href="#regression"><i class="bi bi-person navicon"></i> Dự báo giá xe</a></li>
+        <li><a href="#result"><i class="bi bi-file-earmark-text navicon"></i> Kết quả dự báo</a></li>
+        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Giảng viên hướng dẫn</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section id="home" class="hero section dark-background">
+      <img src="{{url_for('static', filename='assets/img/bang-gia-xe-o-to.webp')}}" alt="" data-aos="fade-in" class="">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <h2>Xây dựng mô hình hồi quy tuyến tính và ứng dụng vào dự báo giá xe hơi</h2>
+        <p>Dự báo <span class="typed" data-typed-items="Giá xe ô tô của các hãng trên thị trường, bằng phương pháp hồi quy tuyến tính, hồi quy tuyến tính cho nhiều biến số"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
       </div>
-      <br>
-      <div class="form-group">
-        <label for="tax">Tax:</label>
-        <input type="number" step="any" name="tax" required>
+    </section><!-- /Hero Section -->
+    <!-- About Section -->
+    <section id="regression" class="about section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Phương pháp bình phương nhỏ nhất (OLS)</h2>
+        <p>Mô hình hồi quy bằng phương pháp bình phương nhỏ nhất hay bé nhất hoặc tối thiểu | cực tiểu viết tắt là OLS (Tiếng anh là Ordinary Least Square) hay còn gọi là mô hình Pooled OLS (Pool) là một trường hợp đặc biệt của phương pháp bình phương nhỏ nhất tổng quát (generalized least squares method – GLS) sử dụng để tìm đường hồi quy gần nhất với giá trị liên tục của biến phụ thuộc hay nói cách khác là làm sao để tổng bình phương các hạng nhiễu hay sai số (∑u2i ) nhỏ nhất như tên gọi của chính phương pháp này.</p>
+      </div><!-- End Section Title -->
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4 justify-content-center">
+          <div class="col-lg-4">
+            <img src="{{url_for('static', filename='assets/img/car.jpeg')}}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-8 content">
+            <h2>Thông tin xe </h2>
+            <p class="fst-italic py-3">
+              Bạn hãy nhập đầy đủ thông tin theo yêu cầu bên dưới để dự báo về giá của chiếc xe hơi.
+            </p>
+
+            <p class="fst-italic">
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#infoCarModal">
+                Xem giải thích các thông số kỹ thuật về xe ô tô.
+              </button>
+            </p>
+            <div class="modal fade" id="infoCarModal" tabindex="-1" aria-labelledby="infoCarModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="infoCarModalLabel">Thông số kỹ thuật</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <img src="{{ url_for('static', filename='images/anh-chu-thich.png') }}" alt="Ảnh chủ thích" class="img-fluid">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form action="/" method="post">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label for="year">Year:</label>
+                    <input class="form-control" type="number" step="any" name="year" min="2010" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="transmission">Transmission:</label>
+                    <select name="transmission" required class="form-control">
+                      <option value="" disabled selected>Select transmission</option>
+                      <option value="Automatic">Automatic</option>
+                      <option value="Manual">Manual</option>
+                      <option value="Semi-Auto">Semi-Automatic</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="mileage">Mileage:</label>
+                    <input class="form-control" type="number" step="any" name="mileage" min="1" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="fuelType">FuelType:</label>
+                    <select name="fuelType" required class="form-control">
+                      <option value="" disabled selected>Select FuelType</option>
+                      <option value="Diesel">Diesel</option>
+                      <option value="Hybrid">Hybrid</option>
+                      <option value="Petrol">Petrol</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="automaker">Automaker:</label>
+                    <select name="automaker" required class="form-control">
+                      <option value="" disabled selected>Select Automaker</option>
+                      <option value="audi">Audi</option>
+                      <option value="bmw">BMW</option>
+                      <option value="focus">Focus</option>
+                      <option value="ford">Ford</option>
+                      <option value="hyundi">Hyundi</option>
+                      <option value="merc">Mercedes</option>
+                      <option value="skoda">Skoda</option>
+                      <option value="toyota">Toyota</option>
+                      <option value="vauxhall">Vauxhall</option>
+                      <option value="vw">VW</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label for="tax">Tax:</label>
+                    <input class="form-control" type="number" step="any" name="tax" min="1" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="mpg">MPG:</label>
+                    <input class="form-control" type="number" step="any" name="mpg" min="1" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="engineSize">EngineSize:</label>
+                    <input class="form-control" type="number" step="any" name="engineSize" min="1" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="isols">Chọn mô hình:</label>
+                    <select name="isols" required class="form-control">
+                      <option value="" disabled selected>Chọn mô hình</option>
+                      <option value="ols">Hồi quy OLS</option>
+                      <option value="machine learning">ML bằng sklearn</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-sm-12 col-md-12">
+                  <button type="submit" class="btn btn-primary btn-block"> Dự báo giá xe</button>
+                </div>
+              </div>
+            </form>
+            <p class="py-3">
+              Thông tin kết quả dự báo sẽ hiện thị ngay bên dưới.
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="mpg">MPG:</label>
-        <input type="number" step="any" name="mpg" required>
+    </section><!-- /About Section -->
+    {% if prediction %}
+    <!-- Resume Section -->
+    <section id="result" class="resume section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2 class="mb-0">Kết quả dự báo</h2>
+      </div><!-- End Section Title -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mb-0" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title">
+              Giá xe : <strong>{{ prediction }}</strong>
+            </h3>
+            <div class="resume-item pb-0">
+              <img class="img-fluid" src="{{ image_source }}" alt="Ảnh góc dưới">
+            </div><!-- Edn Resume Item -->
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="engineSize">EngineSize:</label>
-        <input type="number" step="any" name="engineSize" required>
+    </section><!-- /Resume Section -->
+    {% endif %}
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Giảng viên hướng dẫn</h2>
+        <p>Nhóm chúng em xin chân thành cảm ơn <strong>TS.Nguyễn Mạnh Cường</strong> đã dạy bảo các kiến thức môn học Phân tích dữ liệu để chúng em hoàn thiện dự án này. </p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="info-wrap">
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h3>TS Nguyễn Mạnh Cường</h3>
+                  <p>Môn học : Phân tích dữ liệu</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-telephone flex-shrink-0"></i>
+                <div>
+                  <h3> Số điện thoại</h3>
+                  <p> 0912870090</p>
+                </div>
+              </div><!-- End Info Item -->
+
+<!--              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">-->
+<!--                <i class="bi bi-envelope flex-shrink-0"></i>-->
+<!--                <div>-->
+<!--                  <h3>Email Us</h3>-->
+<!--                  <p>info@example.com</p>-->
+<!--                </div>-->
+<!--              </div>&lt;!&ndash; End Info Item &ndash;&gt;-->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.473663078486!2d105.73291811540255!3d21.053735992299995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345457e292d5bf%3A0x20ac91c94d74439a!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2hp4buHcCBIw6AgTuG7mWk!5e0!3m2!1svi!2s!4v1631076181348!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <br>
-      <div class="form-group">
-        <label for="isols">Chọn mô hình:</label>
-        <select name="isols" required>
-          <option value="" disabled selected>Chọn mô hình</option>
-          <option value="ols">Hồi quy OLS</option>
-          <option value="machine learning">ML bằng sklearn</option>
-        </select>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">CH HTTT K14.1 HaUI</strong> <span>All Rights Reserved</span></p>
       </div>
-      <br>
-      <!-- Căn giữa nút submit -->
-      <div class="submit-button">
-        <input type="submit" value="Dự báo">
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="#">Nguyễn Thanh Triều, Nguyễn Ngọc Trần Bách, Chu Minh Hoàng</a>
       </div>
-    </form>
-  </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{{url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/aos/aos.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/typed.js/typed.umd.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/waypoints/noframework.waypoints.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+  <!-- Main JS File -->
+  <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+  {% if prediction %}
+    <script>
+      window.onload = function() {
+          var el = document.getElementById('result');
+          el.scrollIntoView(true);
+      }
+    </script>
+  {% endif %}
 </body>
+
 </html>
